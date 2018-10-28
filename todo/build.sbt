@@ -13,3 +13,6 @@ triggeredMessage in ThisBuild := Watched.clearWhenTriggered
 // shellPrompt := (_ => fancyPrompt(name.value))
 
 // mainClass in (Compile,run) := Some("Main")
+
+scalacOptions += "-Ypartial-unification"
+libraryDependencies += "org.typelevel" %% "cats-core" % "1.4.0"
