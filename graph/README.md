@@ -79,3 +79,71 @@ topologicalDFS(node, result, visited)
 5. push(node, result)
 
 ```
+
+### DFS Cycle Detection
+```
+visited = {}
+containsCycle(node, ancestors = {})
+1. if (node in ancestors) return true
+2. if (node in visited) return false
+3.   add(node, visited)
+4.   cyclic = false
+5.   foreach(neighbour in node.adjList)
+6.     cyclic = cyclic OR containsCycle(neighbour, ancestors + {node})
+7. return cyclic
+
+```
+
+### DFS Move Once Algorithm
+```
+moveOnceDFS(nodeStack)
+1. node = pop(nodeStack)
+2. if (node != NULL) push(nodeStack, node.adjList) 
+3. return nodeStack
+```
+
+### Floyd's Cycle Detection
+```
+containsCycle(node)
+1. tortoise = moveOnceDFS({node})
+2. hare = moveOnceDFS(moveOnceDFS({node})) 
+3. while (peek(hare) != peek(tortoise) AND notEmpty(hare))
+4.   tortiose = moveOnceDFS(tortoise)
+5.   hare = moveOnceDFS(moveOnceDFS(hare))
+6. return peek(hare) != peek(tortoise)
+```
+
+### Shortest path - Dijkstra's algorithm
+```
+init(graph, source)
+1. dist = EMPTY_MAP
+2. foreach(n in graph.nodes)
+3.   dist(n) = INFINITY
+4. dist(source) = 0
+5. parent = EMPTY_MAP
+6. unprocessed = createSet(graph.nodes)
+
+shortestPaths(graph, source)
+1. init(graph, source)
+2. while(isNotEmpty(unprocessed))
+3.   node = extractMin(unprocessed, dist)
+4.   foreach(neighbour, weight in node.adjList)
+5.     if (dist(node) + weight < dist(neighbour))
+6.       dist(neighbour) = weight + dist(node)
+7.       parent(neighbour) = node
+```
+
+### Ford-Fulkerson's Max Flow
+```
+maxflow(graph, src, sink)
+1. result = 0
+2. residualGraph = createResidualGraph(graph)
+3. while(p = extractPath(residualGraph, src, sink) != NULL)
+4.   minFlow = min(edgesAlong(p))
+5.   result = result + minFlow
+6.   foreach( (a, b) in edgesAlong(p))
+7.     update(residualGraph, a, b, (a,b).flow - minFlow)
+8.     update(residualGraph, b, a, (a,b).flow + minFlow)
+9. return result
+```
+
