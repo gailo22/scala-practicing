@@ -1,3 +1,5 @@
+name := "WordCount"
+
 version := "0.0.1"
 
 organization := "gailo22"
