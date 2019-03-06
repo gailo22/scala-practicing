@@ -17,7 +17,7 @@ object WordCount {
 
     counts.foreach(println)
     System.out.println("Total words: " + counts.count());
-    //  counts.saveAsTextFile("/tmp/shakespeareWordCount")
+    counts.saveAsTextFile("data/output/wordcount")
 
   }
 
