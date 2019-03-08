@@ -40,6 +40,13 @@ object SQLMain extends App {
     """.stripMargin
   )
 
-  authorsDF.write.save("authors.parquet")
+//  authorsDF.write.save("authors.parquet")
+
+  sqlContext.cacheTable("authors")
+//  sqlContext.uncacheTable("authors")
+
+  sqlContext.udf.register("first_letter", (input: String) => input.charAt(0).toString)
+
+  sqlContext.sql("SELECT first_letter(name) FROM authors").show()
 
 }
